@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BindingRedirectRewriter", "BindingRedirectRewriter\BindingRedirectRewriter.csproj", "{320073D3-63DF-4C9C-8A17-41F09C40818F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{320073D3-63DF-4C9C-8A17-41F09C40818F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{320073D3-63DF-4C9C-8A17-41F09C40818F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{320073D3-63DF-4C9C-8A17-41F09C40818F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{320073D3-63DF-4C9C-8A17-41F09C40818F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E944C480-4D7B-4250-B159-B675B1FFA6B0}
+	EndGlobalSection
+EndGlobal
