@@ -3,7 +3,7 @@
 [![Build Status][ci-badge]][ci]
 [![NuGet][nuget-badge]][nuget]
 
-[ci]: https://github.com/Ruikuan/BindingRedirectRewriter/actions?query=workflow%3Adotnet+branch%3Amaster
+[ci]: https://github.com/Ruikuan/BindingRedirectRewriter/actions/workflows/dotnet.yml?query=branch%3Amaster
 [ci-badge]: https://github.com/Ruikuan/BindingRedirectRewriter/actions/workflows/dotnet.yml/badge.svg
 [nuget]: https://www.nuget.org/packages/Ruikuan.BindingRedirectRewriter/
 [nuget-badge]: https://img.shields.io/nuget/v/Ruikuan.BindingRedirectRewriter.svg?style=flat-square
