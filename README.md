@@ -4,8 +4,6 @@ This tool can correct .NET Framework project's `bindingRedirect` versions in `We
 
 This tool should run **AFTER** build has completed.
 
-## Use
-
 ## Usage
 
 Invoke `BindingRedirectRewriter` from your shell.
