@@ -5,16 +5,23 @@ namespace BindingRedirectRewriter
 {
     internal static class AssemblyInfoReader
     {
-        public static AssemblyInfo GetAssemblyInfo(string assemblyFile)
+        public static bool TryGetAssemblyInfo(string assemblyFile, out AssemblyInfo assemblyInfo)
         {
             using var fs = new FileStream(assemblyFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using var peReader = new PEReader(fs);
+
+            if (!peReader.HasMetadata)
+            {
+                assemblyInfo = default;
+                return false;
+            }
 
             MetadataReader mr = peReader.GetMetadataReader();
             var assemblyDef = mr.GetAssemblyDefinition();
             var assemblyName = assemblyDef.GetAssemblyName();
 
-            return new AssemblyInfo(assemblyName.Name!, assemblyName.Version!);
+            assemblyInfo = new AssemblyInfo(assemblyName.Name!, assemblyName.Version!);
+            return true;
         }
     }
 

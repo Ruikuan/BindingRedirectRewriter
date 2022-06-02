@@ -8,7 +8,7 @@ if (args.Length == 0)
     return;
 }
 List<string> rootDirs = new List<string>();
-rootDirs.Add(args[0]); // c:\web
+rootDirs.Add(args[0]);
 
 ConcurrentQueue<string> noBinQueue = new();
 
@@ -16,18 +16,23 @@ foreach (string rootDir in rootDirs)
 {
     FindAppDirAndDoChange(rootDir, 0);
 }
+
+if (noBinQueue.Count > 0)
+{
+    Console.WriteLine("No bin and skipped dirs:");
+}
 while (noBinQueue.Count > 0 && noBinQueue.TryDequeue(out var path))
 {
-
-    Console.WriteLine($"No bin files:\t{path}");
+    Console.WriteLine($"\t\t{path}");
 }
+Console.WriteLine("done.");
 
 void FindAppDirAndDoChange(string dirPath, int level)
 {
     if (level > 6) return;
     if (File.Exists(Path.Combine(dirPath, "Web.config")) || File.Exists(Path.Combine(dirPath, "App.config")))
     {
-        Console.WriteLine(dirPath);
+        Console.WriteLine($"processing: {dirPath}");
         TryCorrectBindingRedirect(dirPath);
     }
     else
@@ -59,7 +64,7 @@ void TryCorrectBindingRedirect(string dirPath)
         Path.Combine(binPath,"release")
     };
 
-    Dictionary<string, Version> assemblyMap = new Dictionary<string, Version>();
+    Dictionary<string, Version> assemblyMap = new();
     foreach (string dllPath in dllPaths)
     {
         if (!Directory.Exists(dllPath))
@@ -67,28 +72,33 @@ void TryCorrectBindingRedirect(string dirPath)
             continue;
         }
 
-        foreach (var dllFile in Directory.GetFiles(dllPath, "*.dll", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }))
+        Parallel.ForEach(Directory.GetFiles(dllPath, "*.dll", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }), dllFile =>
         {
             try
             {
-                var assemblyInfo = AssemblyInfoReader.GetAssemblyInfo(dllFile);
-                if (assemblyMap.ContainsKey(assemblyInfo.AssemblyName))
+                if (AssemblyInfoReader.TryGetAssemblyInfo(dllFile, out var assemblyInfo))
                 {
-                    if (assemblyMap[assemblyInfo.AssemblyName] < assemblyInfo.Version)
+                    lock (assemblyMap)
                     {
-                        assemblyMap[assemblyInfo.AssemblyName] = assemblyInfo.Version;
+                        if (assemblyMap.ContainsKey(assemblyInfo.AssemblyName))
+                        {
+                            if (assemblyMap[assemblyInfo.AssemblyName] < assemblyInfo.Version)
+                            {
+                                assemblyMap[assemblyInfo.AssemblyName] = assemblyInfo.Version;
+                            }
+                        }
+                        else
+                        {
+                            assemblyMap.Add(assemblyInfo.AssemblyName, assemblyInfo.Version);
+                        }
                     }
-                }
-                else
-                {
-                    assemblyMap.Add(assemblyInfo.AssemblyName, assemblyInfo.Version);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{dllFile} {ex.Message}");
+                Console.Error.WriteLine($"{dllFile} {ex.Message}");
             }
-        }
+        });
     }
 
     if (assemblyMap.Count == 0)
