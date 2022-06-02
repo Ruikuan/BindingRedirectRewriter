@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      PATH_TO_PROJECT: src/BindingRedirectRewriter/BindingRedirectRewriter.csproj
+      PATH_TO_PROJECT: BindingRedirectRewriter/BindingRedirectRewriter.csproj
       PATH_TO_TEST_PROJECT: ""
     steps:
     - uses: actions/checkout@v3
