@@ -1,4 +1,4 @@
-# binding-redirect-corrector
+# binding redirect corrector
 
 This tool can correct .NET Framework project's `bindingRedirect` versions in `Web.config`/`App.config`, match them to the exact versions in project compilation output assemblies' version.
 
