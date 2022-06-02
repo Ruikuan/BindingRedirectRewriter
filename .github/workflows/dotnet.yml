@@ -27,5 +27,6 @@ jobs:
     - name: Publish
       env:
           NUGETAPIKEY: ${{ secrets.NUGETAPIKEY }}
+      if: ${{ github.ref == 'refs/heads/master' }}
       run: dotnet nuget push ./nupkgs/*.nupkg --api-key  ${{ env.NUGETAPIKEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
