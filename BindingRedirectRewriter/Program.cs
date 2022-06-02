@@ -124,7 +124,6 @@ void TryCorrectBindingRedirect(string dirPath)
             var left = lineSpan.IndexOf("name=\"") + 6;
             lineSpan = lineSpan[left..];
             var assemblyName = lineSpan[..lineSpan.IndexOf("\"")].ToString();
-            //Console.WriteLine(assemblyName);
             writer.WriteLine(line);
 
             var versionLine = reader.ReadLine();
