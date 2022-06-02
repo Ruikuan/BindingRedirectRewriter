@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+    
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -10,7 +11,11 @@
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Ruikuan.BindingRedirectRewriter</PackageId>
+    <Authors>Ruikuan</Authors>
+    <Copyright>Copyright © Ruikuan</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Ruikuan/BindingRedirectRewriter</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Ruikuan/BindingRedirectRewriter</RepositoryUrl>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>BindingRedirectRewriter</ToolCommandName>
     <AssemblyVersion>$(Version).0</AssemblyVersion>
