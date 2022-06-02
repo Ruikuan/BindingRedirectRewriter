@@ -2,7 +2,7 @@
   "profiles": {
     "BindingRedirectRewriter": {
       "commandName": "Project",
-      "commandLineArgs": "c:\\git\\web-platform"
+      "commandLineArgs": "c:\\git\\web"
     }
   }
 }
