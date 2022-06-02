@@ -27,5 +27,5 @@ jobs:
     - name: Publish
       env:
           NUGETAPIKEY: ${{ secrets.NUGETAPIKEY }}
-      run: dotnet nuget push ./nupkgs/*.nupkg --api-key  ${{ env.NUGETAPIKEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols true
+      run: dotnet nuget push ./nupkgs/*.nupkg --api-key  ${{ env.NUGETAPIKEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
