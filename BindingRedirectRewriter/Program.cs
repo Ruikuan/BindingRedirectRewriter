@@ -50,7 +50,7 @@ void TryCorrectBindingRedirect(string dirPath)
         configFile = Path.Combine(dirPath, "App.config");
     }
 
-    string fileContent = File.ReadAllText(configFile, Encoding.UTF8);
+    var (fileContent, encoding) = ReadConfigFileContext(configFile);
     if (!fileContent.Contains("<assemblyBinding"))
     {
         return;
@@ -158,4 +158,11 @@ static ReadOnlySpan<char> GetAttributeValue(ReadOnlySpan<char> line, string attr
     line = line[left..];
     var attributeValue = line[..line.IndexOf("\"")];
     return attributeValue;
+}
+
+static (string content, Encoding encoding) ReadConfigFileContext(string fileName)
+{
+    using StreamReader streamReader = new StreamReader(fileName, new UTF8Encoding(false));
+    string content = streamReader.ReadToEnd();
+    return (content, streamReader.CurrentEncoding); // if file is utf-bom, the CurrentEncoding will be changed to UTF8Encoding(true) automatically.
 }
