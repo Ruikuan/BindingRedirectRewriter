@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PATH_TO_PROJECT: BindingRedirectRewriter/BindingRedirectRewriter.csproj
+      PATH_TO_TEST_PROJECT: ""
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.PATH_TO_PROJECT }}
+    - name: Build
+      run: dotnet build -c Release ${{ env.PATH_TO_PROJECT }} --no-restore
+    - name: Pack
+      run: dotnet pack -c Release ${{ env.PATH_TO_PROJECT }} --no-build -o ./nupkgs
+    - name: Publish
+      env:
+          NUGETAPIKEY: ${{ secrets.NUGETAPIKEY }}
+      if: ${{ github.ref == 'refs/heads/master' }}
+      run: dotnet nuget push ./nupkgs/*.nupkg --api-key  ${{ env.NUGETAPIKEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+

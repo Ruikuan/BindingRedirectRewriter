@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BindingRedirectRewriter": {
+      "commandName": "Project",
+      "commandLineArgs": "c:\\git\\web"
+    }
+  }
+}
